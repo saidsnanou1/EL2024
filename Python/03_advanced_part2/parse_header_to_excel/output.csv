@@ -1,0 +1,5 @@
+Function Prototype;Unique ID
+"void init();";IDX001
+"int get(int a, int b);";IDX002
+"float send(float x, float y);";IDX003
+"void print_message(const char *message);";IDX004
