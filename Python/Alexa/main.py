@@ -6,15 +6,15 @@ from time import sleep
 import requests
 from playsound import playsound
 
-engine = pyttsx3.init("sapi5")
-voices = engine.getProperty("voices")
-engine.setProperty("rate", 200)
-engine.setProperty("voice", voices[1].id)
 
 
 def speak(response):
+    engine = pyttsx3.init()
+    rate = engine.getProperty('rate')  
+    engine.setProperty('rate', rate - 60)
     engine.say(response)
     engine.runAndWait()
+
 
 
 def get_voice_command():
@@ -25,7 +25,7 @@ def get_voice_command():
         audio = recognizer.listen(source)
         try:
             print("Recognizing...")
-            command = recognizer.recognize_google(audio)
+            command = recognizer.recognize_google(audio,language='en')
             print(f"You said: {command}")
         except sr.UnknownValueError:
             print("Sorry, I could not understand your command.")
@@ -41,11 +41,11 @@ def wishMe():
     hour = int(datetime.datetime.now().hour)
     sleep(1)
     if hour >= 0 and hour < 12:
-        speak("Good Morning")
+        speak("Good Morning said")
     elif hour >= 12 and hour < 18:
-        speak("Good afternoon")
+        speak("Good afternoon said")
     else:
-        speak("Good evening")
+        speak("Good evening said")
     sleep(1)
     speak("I am alexa, please tell me how may I help you")
 
@@ -77,7 +77,7 @@ def main():
             webbrowser.open("https://www.google.com")
             speak("Opening Google.")
         elif "alarm" in command:
-            playsound(r"I:\EL2024\Python\Alexa\alert_signal.mp3")
+            playsound(r"/home/said/EL2024/Python/Alexa/alert_signal.mp3")
         elif "location" in command:
             location = get_geo_info()
             speak(location)
@@ -93,3 +93,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
